@@ -18,4 +18,4 @@ I will update the library following the [method categories described by the API 
 - Security Related: **0%** (0 of 3)
 - Template Related: **0%** (0 of 6)
 
-- **Overall**: **6%** (2 of 99)
+- **Overall**: **6%** (6 of 99)
