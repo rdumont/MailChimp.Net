@@ -32,7 +32,7 @@ namespace RDumont.MailChimpApi
             _url = "https://" + Dc + ".api.mailchimp.com/1.3/";
         }
 
-        public virtual TResult GenericCall<TResult>(string method, object data = null)
+        internal TResult GenericCall<TResult>(string method, object data = null)
         {
             var encoding = Encoding.GetEncoding("iso-8859-1");
 
