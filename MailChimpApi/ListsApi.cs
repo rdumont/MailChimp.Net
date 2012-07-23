@@ -1,8 +1,9 @@
+using System;
 using RDumont.MailChimpApi.Types;
 
 namespace RDumont.MailChimpApi
 {
-    public class ListsApi
+    public class ListsApi : IListsApi
     {
         private readonly MailChimpClient _client;
 
@@ -28,6 +29,23 @@ namespace RDumont.MailChimpApi
                 };
 
             return _client.GenericCall<bool>("listSubscribe", data);
+        }
+
+        public BatchSubscribeResult BatchSubscribe(string id, object[] batch, bool doubleOptin = true,
+            bool updateExisting = false, bool replaceInterests = true)
+        {
+            if (batch == null) throw new ArgumentNullException("batch");
+
+            var data = new
+                {
+                    id,
+                    batch,
+                    double_optin = doubleOptin,
+                    update_existing = updateExisting,
+                    replace_interests = replaceInterests
+                };
+
+            return _client.GenericCall<BatchSubscribeResult>("listBatchSubscribe", data);
         }
 
         public bool Unsubscribe(string id, string emailAddress, bool deleteMember = false, bool sendGoodbye = true, bool sendNotify = true)

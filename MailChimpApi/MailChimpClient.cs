@@ -8,15 +8,15 @@ using RDumont.MailChimpApi.Types;
 
 namespace RDumont.MailChimpApi
 {
-    public class MailChimpClient
+    public class MailChimpClient : IMailChimpClient
     {
         private readonly string _url;
-        private ListsApi _lists;
+        private IListsApi _lists;
 
         public string ApiKey { get; private set; }
         public string Dc { get; private set; }
 
-        public ListsApi Lists { get { return _lists ?? (_lists = new ListsApi(this)); } }
+        public IListsApi Lists { get { return _lists ?? (_lists = new ListsApi(this)); } }
 
         public MailChimpClient(string apiKey)
         {
@@ -32,9 +32,9 @@ namespace RDumont.MailChimpApi
             _url = "https://" + Dc + ".api.mailchimp.com/1.3/";
         }
 
-        internal TResult GenericCall<TResult>(string method, object data = null)
+        public TResult GenericCall<TResult>(string method, object data = null)
         {
-            var encoding = Encoding.GetEncoding("iso-8859-1");
+            var encoding = Encoding.GetEncoding("utf-8");
 
             var url = _url + "?method=" + method;
             if (data == null) url += "&apikey=" + ApiKey;
@@ -45,28 +45,29 @@ namespace RDumont.MailChimpApi
 
             if (data != null)
             {
-                string serialized = JsonConvert.SerializeObject(data);
+                var serialized = JsonConvert.SerializeObject(data);
 
                 if(data.GetType().GetProperty("apikey") == null)
-                {
                     serialized = "{\"apikey\":\"" + ApiKey + "\"," + serialized.Substring(1);
-                }
 
                 var dataBytes = encoding.GetBytes(serialized);
                 var requestStream = request.GetRequestStream();
                 requestStream.Write(dataBytes, 0, dataBytes.Length);
+                requestStream.Close();
             }
 
             var response = request.GetResponse();
             var reader = new StreamReader(response.GetResponseStream(), encoding);
             var text = reader.ReadToEnd();
+            reader.Close();
             try
             {
-                return JsonConvert.DeserializeObject<TResult>(text);
+                var error = JsonConvert.DeserializeObject<ApiError>(text, new JsonSerializerSettings{MissingMemberHandling = MissingMemberHandling.Error});
+                throw new MailChimpException(error);
             }
             catch(JsonSerializationException)
             {
-                throw new MailChimpException(JsonConvert.DeserializeObject<ApiError>(text));
+                return JsonConvert.DeserializeObject<TResult>(text);
             }
         }
     }

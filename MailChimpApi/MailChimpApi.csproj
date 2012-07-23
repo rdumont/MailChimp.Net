@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\RDumont.MailChimpApi.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IListsApi.cs" />
+    <Compile Include="IMailChimpClient.cs" />
     <Compile Include="ListsApi.cs" />
     <Compile Include="MailChimpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\BatchSubscribeError.cs" />
+    <Compile Include="Types\BatchSubscribeResult.cs" />
     <Compile Include="Types\List.cs" />
     <Compile Include="Types\ListStats.cs" />
     <Compile Include="Types\MailChimpArray.cs" />
