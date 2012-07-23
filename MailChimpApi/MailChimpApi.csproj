@@ -45,6 +45,8 @@
     <Compile Include="ListsApi.cs" />
     <Compile Include="MailChimpClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\List.cs" />
+    <Compile Include="Types\ListStats.cs" />
     <Compile Include="Types\MailChimpArray.cs" />
     <Compile Include="Types\MailChimpException.cs" />
   </ItemGroup>
