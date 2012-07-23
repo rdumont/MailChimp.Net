@@ -3,11 +3,18 @@ using RDumont.MailChimpApi.Types;
 
 namespace RDumont.MailChimpApi
 {
+    /// <summary>
+    /// List Related Methods implementation
+    /// </summary>
     public class ListsApi : IListsApi
     {
-        private readonly MailChimpClient _client;
+        private readonly IMailChimpClient _client;
 
-        public ListsApi(MailChimpClient client)
+        /// <summary>
+        /// Creates an instance based on a MailChimp client
+        /// </summary>
+        /// <param name="client"></param>
+        public ListsApi(IMailChimpClient client)
         {
             _client = client;
         }

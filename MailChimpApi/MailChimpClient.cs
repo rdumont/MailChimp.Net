@@ -8,6 +8,9 @@ using RDumont.MailChimpApi.Types;
 
 namespace RDumont.MailChimpApi
 {
+    /// <summary>
+    /// MailChimp API v1.3 client implementation
+    /// </summary>
     public class MailChimpClient : IMailChimpClient
     {
         private readonly string _url;
@@ -18,6 +21,10 @@ namespace RDumont.MailChimpApi
 
         public IListsApi Lists { get { return _lists ?? (_lists = new ListsApi(this)); } }
 
+        /// <summary>
+        /// Creates an instance using a given API key
+        /// </summary>
+        /// <param name="apiKey">The API key</param>
         public MailChimpClient(string apiKey)
         {
             if (string.IsNullOrEmpty(apiKey)) throw new ArgumentNullException("apiKey");
