@@ -49,6 +49,18 @@ namespace RDumont.MailChimpApi
         bool Unsubscribe(string id, string emailAddress, bool deleteMember = false, bool sendGoodbye = true, bool sendNotify = true);
 
         /// <summary>
+        /// Unsubscribe a batch of email addresses to a list
+        /// </summary>
+        /// <param name="id">the list id to connect to. Get by calling lists()</param>
+        /// <param name="emails">array of email addresses to unsubscribe</param>
+        /// <param name="deleteMember">flag to completely delete the member from your list instead of just unsubscribing, default to false</param>
+        /// <param name="sendGoodbye">flag to send the goodbye email to the email addresses, defaults to true</param>
+        /// <param name="sendNotify">flag to send the unsubscribe notification email to the address defined in the list email notification settings, defaults to false</param>
+        /// <returns>Array of result counts and any errors that occurred</returns>
+        SuccessCountResult BatchUnsubscribe(string id, string[] emails, bool deleteMember = false,
+            bool sendGoodbye = true, bool sendNotify = false);
+
+        /// <summary>
         /// Edit the email address, merge fields, and interest groups for a list member
         /// </summary>
         /// <param name="id">the list id to connect to. Get by calling lists()</param>

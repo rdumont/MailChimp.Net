@@ -28,6 +28,6 @@ namespace RDumont.MailChimpApi.Types
         /// <summary>
         /// Error details
         /// </summary>
-        public BatchSubscribeError[] Errors { get; set; }
+        public EmailError[] Errors { get; set; }
     }
 }

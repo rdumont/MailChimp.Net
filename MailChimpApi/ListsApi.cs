@@ -69,6 +69,20 @@ namespace RDumont.MailChimpApi
             return _client.GenericCall<bool>("listUnsubscribe", data);
         }
 
+        public SuccessCountResult BatchUnsubscribe(string id, string[] emails, bool deleteMember = false, bool sendGoodbye = true, bool sendNotify = false)
+        {
+            var data = new
+                {
+                    id,
+                    emails,
+                    delete_member = deleteMember,
+                    send_goodbye = sendGoodbye,
+                    send_notify = sendNotify
+                };
+
+            return _client.GenericCall<SuccessCountResult>("listBatchUnsubscribe", data);
+        }
+
         public bool UpdateMember(string id, string emailAddress, object mergeVars, string emailType = "", bool replaceInterests = true)
         {
             var data = new

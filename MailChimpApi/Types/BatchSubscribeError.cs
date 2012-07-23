@@ -1,9 +1,9 @@
 namespace RDumont.MailChimpApi.Types
 {
     /// <summary>
-    /// Error details
+    /// Email error details
     /// </summary>
-    public class BatchSubscribeError
+    public class EmailError
     {
         /// <summary>
         /// address the email address in question
